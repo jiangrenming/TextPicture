@@ -1,14 +1,16 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 27
     buildToolsVersion "27.0.3"
+
     defaultConfig {
-        applicationId "main.demo.mobads.baidu.com.textpicturedemo"
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
+
+
     }
     buildTypes {
         release {
@@ -19,8 +21,6 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.android.support:support-v4:26.0.0-alpha1'
-    compile project(':androidutils')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
 }

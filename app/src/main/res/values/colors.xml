@@ -3,4 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <!--普通辅助场景，如辅助、次要文本信息、排序、icon-->
+    <color name="common_gray">#8F8F8F</color>
+    <color name="divider_gray">#eeeeee</color>
+    <color name="divider_gray_pressed">#D3D3D3</color>
+    <color name="pressed_gray">#E2E2E2</color>
 </resources>

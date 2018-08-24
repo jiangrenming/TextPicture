@@ -1,6 +1,11 @@
 package main.demo.mobads.baidu.com.textpicturedemo;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -65,5 +70,13 @@ public class MainActivity extends Activity {
                 }
             }
         });
+        findViewById(R.id.wifi).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,WifiActivity.class));
+            }
+        });
     }
+
+
 }
