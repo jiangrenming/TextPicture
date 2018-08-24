@@ -91,17 +91,7 @@ public class WifiAdapter extends BaseAdapter {
         holder.wifi_details.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (wifiInformation.getState() != WifiState.NONE){
-                    String[] items = new String[2];
-                    items[0] = "取消保存网络";
-                    items[1] = "修改网络";
-                    mCallBack.getDetials(position,items);
-                }else {
-                    //点击未连接的wifi
-                    String[] items = new String[1];
-                    items[0] = "连接到网络";
-                    mCallBack.getDetials(position,items);
-                }
+                mCallBack.getDetials(position,wifiInformation);
             }
         });
         return convertView;
@@ -119,7 +109,7 @@ public class WifiAdapter extends BaseAdapter {
         this.mCallBack = callBack;
     }
     public  interface  WifiDetailsCallBack{
-        void getDetials(int position,String [] items);
+        void getDetials(int position,WifiInformation wifiInformation);
     }
 
 }

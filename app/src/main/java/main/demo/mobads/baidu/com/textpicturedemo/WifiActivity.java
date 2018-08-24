@@ -1,6 +1,7 @@
 package main.demo.mobads.baidu.com.textpicturedemo;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.IntentFilter;
 import android.net.NetworkInfo;
 import android.net.wifi.ScanResult;
@@ -276,6 +277,13 @@ public class WifiActivity extends Activity implements View.OnClickListener{
         return result;
     }
 
+    AlertDialog connectedInfoDialog = null;
+    AlertDialog toConnectDialog = null;
+    AlertDialog connectingDialog = null;
+    AlertDialog longClickDialog = null;
+    AlertDialog addWifiDialog = null;
+    AlertDialog failedDialog = null;
+
     private void initWifi() {
         isOpen = mOperWifi.isOpenWifi();
         if (isOpen){
@@ -292,28 +300,68 @@ public class WifiActivity extends Activity implements View.OnClickListener{
         //点击进入wifi详情
         mAdapter.setWifiDetailsCallBack(new WifiAdapter.WifiDetailsCallBack() {
             @Override
-            public void getDetials(int position, String[] items) {
+            public void getDetials(int position, WifiInformation wifiInformation) {
+                if (wifiInformation != null){
+                    if (wifiInformation.getState() == WifiState.CONNNECTED){
 
+                    }else if (wifiInformation.getState() == WifiState.NONE ){
+
+                    }else if (wifiInformation.getState() == WifiState.STORED|| wifiInformation.getState() == WifiState.DISCONNECTED){
+
+                    }else {
+
+                    }
+                }
             }
         });
         //弹出弹出窗
         wifi_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
                 WifiInformation wifiInformation = wifis.get(position);
-                WifiState state = wifiInformation.getState();
-                if (state ==WifiState.CONNNECTED){
-
-                }else if (state == WifiState.NONE){
-
-                }else if (state ==WifiState.STORED || state == WifiState.DISCONNECTED){
-
+                if (wifiInformation.getState() != WifiState.NONE){
+                    String[] items = new String[2];
+                    items[0] = "取消保存网络";
+                    items[1] = "修改网络";
                 }else {
-
+                    //点击未连接的wifi
+                    String[] items = new String[1];
+                    items[0] = "连接到网络";
                 }
             }
         });
 
+    }
+
+    private  void connectionDialog(WifiInformation wifiInfo){
+
+    }
+
+    /**
+     * 取消保存网络
+     * @param netId
+     * @param position
+     */
+    private void cancelKeep(int netId, int position){
+        stopTimer();
+        boolean result = false;
+        if (netId == -1){
+            //取消保存当前连接网络
+            result = mOperWifi.removeWifi();
+        }else {
+            //取消保存指定网络
+            result = mOperWifi.removeWifi(netId);
+        }
+        if (result) {
+            isRemoveKeep = true;
+            curConnectingInfo = null;
+            wifis.get(position).setState(WifiState.NONE);
+            mAdapter.notifyDataSetChanged();
+            mReceiver.resetCount();
+            initWifiInformations();
+        }else {
+        }
     }
 
     private void initData() {
