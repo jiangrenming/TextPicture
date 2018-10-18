@@ -44,6 +44,11 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 try{
                     List<String> names = Utils.getNames(MainActivity.this);
+                    String oldpath = Environment.getExternalStorageDirectory() + "/image";
+                    File file = new File(oldpath);
+                    if (file.exists()){
+                        file.delete();
+                    }
                     for (int i = 0; i < names.size(); i++) {
                         String spliteNames = Utils.spliteNames(names.get(i));
                         TextPaint textPaint = new TextPaint();
